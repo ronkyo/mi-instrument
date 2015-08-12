@@ -217,7 +217,7 @@ class PortAgentPacket:
 class PortAgentClient(object):
     """
     A port agent process client class to abstract the TCP interface to the
-    of port agent. From the instrument driver's perspective, data is sent
+    port agent. From the instrument driver's perspective, data is sent
     to the port agent with this client's send method, and data is received
     asynchronously via a callback from this client's listener thread.
     """

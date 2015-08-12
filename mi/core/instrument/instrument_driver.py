@@ -12,6 +12,8 @@ import random
 __author__ = 'Steve Foley'
 __license__ = 'Apache 2.0'
 
+import consulate
+import json
 import time
 
 from threading import Thread
@@ -449,6 +451,9 @@ class SingleConnectionInstrumentDriver(InstrumentDriver):
 
         # The one and only instrument protocol.
         self._protocol = None
+
+        # Consul
+        self.consul = consulate.Consul()
 
         # Build connection state machine.
         self._connection_fsm = ThreadSafeFSM(DriverConnectionState,
@@ -1131,8 +1136,25 @@ class SingleConnectionInstrumentDriver(InstrumentDriver):
 
         try:
             addr = config['addr']
-            port = config['port']
-            cmd_port = config.get('cmd_port')
+
+            refdes = config.get('refdes')
+            if refdes is not None:
+                self.data_port_id = '%s-port-agent' % refdes
+                self.command_port_id = '%s-command-port-agent' % refdes
+
+                # Try to get the service info from consul
+                json_data_port = self.consul.catalog.service(self.data_port_id)
+                if json_data_port:
+                    port = json.loads(json_data_port)[0]['ServicePort']
+                # else, do something!
+
+                json_cmd_port = self.consul.catalog.service(self.command_port_id)
+                if json_cmd_port:
+                    cmd_port = json.loads(json_cmd_port)[0]['ServicePort']
+                # else, do something!
+            else:
+                port = config['port']
+                cmd_port = config.get('cmd_port')
 
             if isinstance(addr, str) and isinstance(port, int) and len(addr) > 0:
                 return PortAgentClient(addr, port, cmd_port)
