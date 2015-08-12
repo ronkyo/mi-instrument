@@ -420,13 +420,13 @@ class Protocol(CommandResponseInstrumentProtocol):
         """
         Populate the command dictionary with commands.
         """
-        self._cmd_dict.add(Capability.START_AUTOSAMPLE, display_name="Start Autosample")
-        self._cmd_dict.add(Capability.STOP_AUTOSAMPLE, display_name="Stop Autosample")
-        self._cmd_dict.add(Capability.ACQUIRE_STATUS, display_name="Acquire Status")
-        self._cmd_dict.add(Capability.START_LEVELING, display_name="Start LILY Leveling")
-        self._cmd_dict.add(Capability.STOP_LEVELING, display_name="Stop LILY Leveling")
-        self._cmd_dict.add(Capability.START_HEATER, display_name="Start Heater")
-        self._cmd_dict.add(Capability.STOP_HEATER, display_name="Stop Heater")
+        self._cmd_dict.add(Capability.START_AUTOSAMPLE, display_name="START AUTOSAMPLE")
+        self._cmd_dict.add(Capability.STOP_AUTOSAMPLE, display_name="STOP AUTOSAMPLE")
+        self._cmd_dict.add(Capability.ACQUIRE_STATUS, display_name="ACQUIRE STATUS")
+        self._cmd_dict.add(Capability.START_LEVELING, display_name="START LILY LEVELING")
+        self._cmd_dict.add(Capability.STOP_LEVELING, display_name="STOP LILY LEVELING")
+        self._cmd_dict.add(Capability.START_HEATER, display_name="START HEATER")
+        self._cmd_dict.add(Capability.STOP_HEATER, display_name="STOP HEATER")
 
     def _build_param_dict(self):
         """
